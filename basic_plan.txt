@@ -1,3 +1,0 @@
-imma start with a basic ui like painfully plain ui
-use localstore to save diary enteries - show case it as like being more secure cz no data interception uwu
-enter text on one page -- show the saved shi in the other page
