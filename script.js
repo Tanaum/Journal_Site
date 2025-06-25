@@ -16,7 +16,7 @@ diaryEntryButton.on("click", saveDiaryContent);
 
 // On document ready, only display entries if the container exists (PrvEnt.html)
 $(document).ready(function() {
-    if ($('.prvEntries').length) {
+    if (prvEntries.length) {
         displayPreviousEntries();
     }
 });
