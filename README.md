@@ -17,4 +17,4 @@ Currently, the site:
 - Add user accounts (maybe with MongoDB later)
 - Style it up with themes / better UI
 
-You can use the current version [here](your-live-link) (runs with localStorage).
+You can use the current version [here](https://tanaum.github.io/Journal_Site/) (runs with localStorage).
