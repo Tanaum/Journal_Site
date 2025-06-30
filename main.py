@@ -12,7 +12,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS JOURNAL_ENTRIES(
 
 #function for storing data
 def SaveToDB(data):
-    #data will probably be json, make into a list of tuples, then save data
+    #data will be json, make into a list of tuples, then save data
     con = sqlite3.connect("journal_entries.db")
     cur = con.cursor()
     time = data["TimeInMilli"]
@@ -25,7 +25,6 @@ def SaveToDB(data):
 #function for retrieving data
 def RetrieveData():
     #data is returned as lists of tuples from the db
-    #i suppose i could send it back as a big json file
     con = sqlite3.connect("journal_entries.db")
     cur = con.cursor()
     result = cur.execute("""SELECT * 
@@ -56,7 +55,7 @@ def SendEntries():
     for entry in DictEntries:
         EntriesToSend.append({"TimeInMilli": entry[0],"Date": entry[1],"Entry": entry[2]})
 
-    return EntriesToSend
+    return jsonify(EntriesToSend)
 
 con.close()
 
