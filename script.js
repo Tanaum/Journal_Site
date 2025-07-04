@@ -56,7 +56,6 @@ function displayPreviousEntries(){
     // Now loop through in order
     timestampKeys.forEach(keyNum => {
         let diaryEntry = JSON.parse(localStorage.getItem(keyNum.toString()));
-    //  alert(`${diaryEntry.todaysDate}: ${diaryEntry.diaryContent}`);
         
         var entryHTML = `
             <div class="diaryentryBox">
