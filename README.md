@@ -12,9 +12,9 @@ Currently, the site:
 - How to interact with SQLite in Python
 
 ## 🛣️ Next Steps
-- [] Connect the frontend to the API using `fetch()`
-- [] Replace localStorage with backend DB storage
-- [] Add user accounts (maybe with MongoDB later)
+- [ ] Connect the frontend to the API using `fetch()`
+- [ ] Replace localStorage with backend DB storage
+- [ ] Add user accounts (maybe with MongoDB later)
 - [x] Style it up with themes / better UI
 
 You can use the current version [here](https://tanaum.github.io/Journal_Site/) (runs with localStorage).
