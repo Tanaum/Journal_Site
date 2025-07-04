@@ -50,8 +50,8 @@ function displayPreviousEntries(){
         timestampKeys.push(Number(key));
     }
 
-    // Sort keys ascending (oldest to newest)
-    timestampKeys.sort((a, b) => a - b);
+    // Sort keys descending (newest to oldest)
+    timestampKeys.sort((a, b) => b-a);
 
     // Now loop through in order
     timestampKeys.forEach(keyNum => {
