@@ -26,6 +26,20 @@ body{
   padding-top: 50px;
 }
 
+.prvEntries{
+  display: flex;
+  flex-flow: column;
+  gap: 25px;
+}
+
+.diaryentryBox{
+  display: flex;
+  flex-flow: column;
+  border-radius: 25px;
+  padding: 20px;
+  box-shadow: -1px 5px 10px;
+}
+
 /* From Uiverse.io by sekaiking */ 
 a, button {
   background-color: white;
