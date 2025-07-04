@@ -93,4 +93,12 @@ a:active, button:active {
   flex-direction: column;
   gap: 10px;
 }
+  .entry-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-clip: border-box;
+  gap: 15px;
+  }
 }
