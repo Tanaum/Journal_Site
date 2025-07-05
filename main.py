@@ -37,16 +37,18 @@ def RetrieveData():
 app = Flask(__name__)
 
 #will take data sent from user
-@app.route("/DiaryEntry.html", methods=["POST"]) #POST will be used here cz this will *send* data to the db
+@app.route("/api/save-entry", methods=["POST"]) #POST will be used here cz this will *send* data to the db
 def TakeEntry():
     data = request.get_json()
 
     SaveToDB(data)
 
-    return {"success":True, "message": "data successfully stored"}
+    msg = {"success":True, "message": "data successfully stored"}
+
+    return jsonify(msg)
 
 #will send data to the user 
-@app.route("/PrvEnt.html", methods=["GET"]) #GET will be used here cz this will *retrieve* data from the db
+@app.route("/api/get-entries", methods=["GET"]) #GET will be used here cz this will *retrieve* data from the db
 def SendEntries():
     DictEntries = RetrieveData()
 
