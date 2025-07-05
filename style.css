@@ -8,6 +8,8 @@ a, a:link, a:visited, a:focus, a:active, a:hover{
   justify-content: center;
   align-items: center;
   background-clip: border-box;
+  margin: 0;
+  height: 100vh;
 }
 
 .entry-box {
