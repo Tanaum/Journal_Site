@@ -32,3 +32,5 @@ def RetrieveData():
     AllData = result.fetchall() # ✅ get all the rows while the DB is still open
     con.close()
     return AllData
+
+con.close()
