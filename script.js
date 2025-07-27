@@ -16,7 +16,7 @@ diaryEntryButton.on("click", ()=>{
     var year = d.getFullYear();
 
     if (diaryEntry.val() !== ""){
-        // using PUT
+        // using POST
         $.ajax({
             url: 'http://localhost:5000/api/save-entry', // your Flask endpoint
             method: 'POST',
