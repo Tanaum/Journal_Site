@@ -28,14 +28,13 @@ diaryEntryButton.on("click", ()=>{
             }),
             success: function(response) {
                 console.log("Update success:", response);
+                diaryEntry.val(''); // Clear the textarea after submission
             },
             error: function(xhr, status, error) {
                 console.error("PUT error:", error);
             }
         });
     }
-    
-    diaryEntry.val(''); // Clear the textarea after submission
 });
 
 // On document ready, only display entries if the container exists (PrvEnt.html)
