@@ -21,9 +21,11 @@ You can use the current version [here](https://tanaum.github.io/Journal_Site/) (
 
 ## 🧠 How to Run
 1. Clone the repository
-2. Run ```
-   bash
+2. Run
+   ```bash
    python -m http.server 5500
    ```
-4. Run ```bash main.py```
-5. 
+4. Run ```bash
+   main.py
+   ```
+   
