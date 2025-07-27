@@ -1,7 +1,8 @@
 import sqlite3
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
-con = sqlite3.connect("journal_entries.db")
+con = sqlite3.connect("E:\journal_entries.db")
 
 cur = con.cursor()
 cur.execute("""CREATE TABLE IF NOT EXISTS JOURNAL_ENTRIES(
@@ -13,7 +14,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS JOURNAL_ENTRIES(
 #function for storing data
 def SaveToDB(data):
     #data will be json, make into a list of tuples, then save data
-    con = sqlite3.connect("journal_entries.db")
+    con = sqlite3.connect("E:\journal_entries.db")
     cur = con.cursor()
     time = data["TimeInMilli"]
     date = data["Date"]
@@ -25,10 +26,11 @@ def SaveToDB(data):
 #function for retrieving data
 def RetrieveData():
     #data is returned as lists of tuples from the db
-    con = sqlite3.connect("journal_entries.db")
+    con = sqlite3.connect("E:\journal_entries.db")
     cur = con.cursor()
     result = cur.execute("""SELECT * 
-                          FROM JOURNAL_ENTRIES;""")
+                        FROM JOURNAL_ENTRIES
+                        ORDER BY TimeInMilli DESC;""")
     AllData = result.fetchall() # ✅ get all the rows while the DB is still open
     con.close()
     return AllData
@@ -36,10 +38,14 @@ def RetrieveData():
 #api stuff
 app = Flask(__name__)
 
+CORS(app, supports_credentials=True)  # This allows all domains to access all routes (for dev it's fine)
+
 #will take data sent from user
 @app.route("/api/save-entry", methods=["POST"]) #POST will be used here cz this will *send* data to the db
 def TakeEntry():
     data = request.get_json()
+
+    print(data)
 
     SaveToDB(data)
 
