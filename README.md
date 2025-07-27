@@ -11,21 +11,21 @@ Currently, the site:
 - How to interact with SQLite in Python
 - Handling CORS
 
+## 🧠 How to Run
+1. Clone the repository
+2. In one terminal run
+   ```bash
+   python -m http.server 5500
+   ```
+3. In another terminal run
+   ```bash
+   main.py
+   ```
+4. Go to ```http://localhost:5500/index.html```
+5. Now you can use the website!
+
 ## 🛣️ Next Steps
 - [x] Connect the frontend to the API using `AJAX`
 - [x] Replace localStorage with backend DB storage
 - [ ] Add user accounts (maybe with MongoDB later)
 - [x] Style it up with themes / better UI
-
-You can use the current version [here](https://tanaum.github.io/Journal_Site/) (runs with localStorage).
-
-## 🧠 How to Run
-1. Clone the repository
-2. Run
-   ```bash
-   python -m http.server 5500
-   ```
-4. Run ```bash
-   main.py
-   ```
-   
