@@ -13,16 +13,21 @@ Currently, the site:
 
 ## 🧠 How to Run
 1. Clone the repository
-2. In one terminal run
+2. Run the following commands:
+   ```bash
+   pip install flask
+   pip install flask_cors
+   ```
+4. In one terminal run
    ```bash
    python -m http.server 5500
    ```
-3. In another terminal run
+5. In another terminal run
    ```bash
    main.py
    ```
-4. Go to ```http://localhost:5500/index.html```
-5. Now you can use the website!
+6. Go to ```http://localhost:5500/index.html```
+7. Now you can use the website!
 
 ## 🛣️ Next Steps
 - [x] Connect the frontend to the API using `AJAX`
