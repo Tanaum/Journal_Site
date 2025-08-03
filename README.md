@@ -13,10 +13,9 @@ Currently, the site:
 
 ## 🧠 How to Run
 1. Clone the repository
-2. Run the following commands:
+2. Install dependencies:
    ```bash
-   pip install flask
-   pip install flask_cors
+   pip install -r requirements.txt
    ```
 4. In one terminal run
    ```bash
