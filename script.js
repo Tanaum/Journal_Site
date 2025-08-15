@@ -5,8 +5,6 @@ var diaryEntry = $('.diaryEntry');
 var diaryEntryButton = $('.diaryEntryButton');
 var prvEntries = $('.prvEntries');
 
-// EVENT LISTNER
-
 //TO TAKE THE CONTENT FROM THE USER
 diaryEntryButton.on("click", ()=>{
     //DATE
