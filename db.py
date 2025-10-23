@@ -22,15 +22,24 @@ def SaveToDB(data):
     con.close()
 
 #function for retrieving data
-def RetrieveData():
-    #data is returned as lists of tuples from the db
-    con = sqlite3.connect("E:\journal_entries.db")
-    cur = con.cursor()
-    result = cur.execute("""SELECT * 
-                        FROM JOURNAL_ENTRIES
-                        ORDER BY TimeInMilli DESC;""")
-    AllData = result.fetchall() # ✅ get all the rows while the DB is still open
-    con.close()
+def RetrieveData(PrimKey="*"):
+    if PrimKey == '*':
+        #data is returned as lists of tuples from the db
+        con = sqlite3.connect("E:\journal_entries.db")
+        cur = con.cursor()
+        result = cur.execute("""SELECT * 
+                            FROM JOURNAL_ENTRIES
+                            ORDER BY TimeInMilli DESC;""")
+        AllData = result.fetchall() # ✅ get all the rows while the DB is still open
+        con.close()
+    else:
+        con = sqlite3.connect("E:\journal_entries.db")
+        cur = con.cursor()
+        result = cur.execute("""SELECT * 
+                            FROM JOURNAL_ENTRIES
+                            WHERE TimeInMilli = ?;""", (int(PrimKey),))
+        AllData = result.fetchall() # ✅ get all the rows while the DB is still open
+        con.close()
     return AllData
 
 con.close()

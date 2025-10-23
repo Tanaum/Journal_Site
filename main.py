@@ -31,5 +31,12 @@ def SendEntries():
 
     return jsonify(EntriesToSend)
 
+#retrieve entry to be edited
+@app.route("/api/edit-entry/<TimeInMilli>", methods=["GET"])
+def EditEntry(TimeInMilli):
+    OriginalEntry = RetrieveData(TimeInMilli)
+
+    return jsonify(OriginalEntry)
+
 if __name__ == "__main__":
     app.run(debug=True)
