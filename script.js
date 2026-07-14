@@ -4,6 +4,7 @@
 var diaryEntry = $('.diaryEntry');
 var diaryEntryButton = $('.diaryEntryButton');
 var prvEntries = $('.prvEntries');
+var editBtn = $('.editBtn');
 
 //TO TAKE THE CONTENT FROM THE USER
 diaryEntryButton.on("click", ()=>{
@@ -45,7 +46,7 @@ $(document).ready(()=>{
             console.log(data[i])
 
             var entryHTML = `
-            <div class="diaryentryBox">
+            <div class="diaryentryBox" id=${data[i].TimeInMilli}>
                 <p><strong>${data[i].Date}:</strong></p>
                 <p>${data[i].Entry}</p>
             </div>
@@ -58,3 +59,8 @@ $(document).ready(()=>{
     }
     });
 });
+
+// Editing an entry
+// editBtn.on("click", ()=>{
+//     alert("btn workss")
+// });
