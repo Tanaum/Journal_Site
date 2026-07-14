@@ -3,6 +3,9 @@ import sqlite3
 con = sqlite3.connect("E:\Journal_Site\journal_entries.db")
 
 cur = con.cursor()
+
+cur.execute("PRAGMA foreign_keys = ON;")    # it prevents a fk in entries that doesnt exist as a pk in users 
+
 cur.execute("""CREATE TABLE IF NOT EXISTS JOURNAL_ENTRIES(
             TimeInMilli INTEGER PRIMARY KEY,
             Date TEXT,
