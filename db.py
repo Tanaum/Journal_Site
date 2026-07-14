@@ -59,3 +59,16 @@ def RetrieveData(PrimKey="*"):
     
     con.close()
     return AllData
+
+def SignUp():
+    # get user and psw
+    # ensure data doesnt already exist
+    # if exists, tell user to enter unique details
+    # generate uuid
+    ...
+
+def LogIn():
+    # get user creds
+    # check whether user exists
+    # proceed if creds are correct
+    ...
