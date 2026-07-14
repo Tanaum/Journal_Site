@@ -1,6 +1,8 @@
 import sqlite3
 
-con = sqlite3.connect("E:\Journal_Site\journal_entries.db")
+PATH = "E:\Journal_Site\journal_entries.db"
+
+con = sqlite3.connect(PATH)
 
 cur = con.cursor()
 
@@ -28,8 +30,9 @@ con.close()
 #function for storing data
 def SaveToDB(data):
     #data will be json, make into a list of tuples, then save data
-    con = sqlite3.connect("E:\journal_entries.db")
+    con = sqlite3.connect(PATH)
     cur = con.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
     time = data["TimeInMilli"]
     date = data["Date"]
     entry = data["Entry"]
@@ -39,21 +42,20 @@ def SaveToDB(data):
 
 #function for retrieving data
 def RetrieveData(PrimKey="*"):
+    con = sqlite3.connect(PATH)
+    cur = con.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
     if PrimKey == '*':
         #data is returned as lists of tuples from the db
-        con = sqlite3.connect("E:\journal_entries.db")
-        cur = con.cursor()
         result = cur.execute("""SELECT * 
                             FROM JOURNAL_ENTRIES
                             ORDER BY TimeInMilli DESC;""")
         AllData = result.fetchall() # ✅ get all the rows while the DB is still open
-        con.close()
     else:
-        con = sqlite3.connect("E:\journal_entries.db")
-        cur = con.cursor()
         result = cur.execute("""SELECT * 
                             FROM JOURNAL_ENTRIES
                             WHERE TimeInMilli = ?;""", (int(PrimKey),))
         AllData = result.fetchall() # ✅ get all the rows while the DB is still open
-        con.close()
+    
+    con.close()
     return AllData
