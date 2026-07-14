@@ -1,6 +1,6 @@
 import sqlite3
 
-PATH = "E:\Journal_Site\journal_entries.db"
+PATH = "E:/Journal_Site/journal_entries.db"
 
 con = sqlite3.connect(PATH)
 
