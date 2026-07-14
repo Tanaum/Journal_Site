@@ -1,6 +1,6 @@
 import sqlite3
 
-con = sqlite3.connect("E:\journal_entries.db")
+con = sqlite3.connect("E:\Journal_Site\journal_entries.db")
 
 cur = con.cursor()
 cur.execute("""CREATE TABLE IF NOT EXISTS JOURNAL_ENTRIES(
@@ -8,7 +8,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS JOURNAL_ENTRIES(
             Date TEXT,
             Entry TEXT
             );""")
-#meoww
+
 #function for storing data
 def SaveToDB(data):
     #data will be json, make into a list of tuples, then save data
