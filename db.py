@@ -8,14 +8,14 @@ cur = con.cursor()
 
 cur.execute("PRAGMA foreign_keys = ON;")    # it prevents a fk in entries that doesnt exist as a pk in users 
 
-cur.execute('''CREATE TABLE "USERS" (
+cur.execute('''CREATE TABLE IF NOT EXISTS "USERS" (
 	"user_id"	TEXT NOT NULL UNIQUE,
 	"Username"	TEXT NOT NULL UNIQUE,
 	"Password"	INTEGER NOT NULL,
 	PRIMARY KEY("user_id")
 );''')
 
-cur.execute('''CREATE TABLE "JOURNAL_ENTRIES" (
+cur.execute('''CREATE TABLE IF NOT EXISTS "JOURNAL_ENTRIES" (
 	"TimeInMilli"	INTEGER,
 	"user_id_FK"	INTEGER,
 	"Date"	TEXT,
