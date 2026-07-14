@@ -8,7 +8,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS JOURNAL_ENTRIES(
             Date TEXT,
             Entry TEXT
             );""")
-
+#meoww
 #function for storing data
 def SaveToDB(data):
     #data will be json, make into a list of tuples, then save data
