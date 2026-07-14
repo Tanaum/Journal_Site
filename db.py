@@ -6,11 +6,24 @@ cur = con.cursor()
 
 cur.execute("PRAGMA foreign_keys = ON;")    # it prevents a fk in entries that doesnt exist as a pk in users 
 
-cur.execute("""CREATE TABLE IF NOT EXISTS JOURNAL_ENTRIES(
-            TimeInMilli INTEGER PRIMARY KEY,
-            Date TEXT,
-            Entry TEXT
-            );""")
+cur.execute('''CREATE TABLE "USERS" (
+	"user_id"	TEXT NOT NULL UNIQUE,
+	"Username"	TEXT NOT NULL UNIQUE,
+	"Password"	INTEGER NOT NULL,
+	PRIMARY KEY("user_id")
+);''')
+
+cur.execute('''CREATE TABLE "JOURNAL_ENTRIES" (
+	"TimeInMilli"	INTEGER,
+	"user_id_FK"	INTEGER,
+	"Date"	TEXT,
+	"Entry"	TEXT,
+	PRIMARY KEY("TimeInMilli"),
+	FOREIGN KEY("user_id_FK") REFERENCES "USERS"("user_id")
+);''')
+
+con.commit()
+con.close()
 
 #function for storing data
 def SaveToDB(data):
@@ -44,5 +57,3 @@ def RetrieveData(PrimKey="*"):
         AllData = result.fetchall() # ✅ get all the rows while the DB is still open
         con.close()
     return AllData
-
-con.close()
