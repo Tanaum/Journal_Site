@@ -90,18 +90,19 @@ def LogIn(username:str, psw:str):
 
     hashed_password = str(hashlib.sha256(psw.encode("utf-8")).hexdigest())
 
-    result = cur.execute("""SELECT Username, Password
+    result = cur.execute("""SELECT user_id, Username, Password
                          FROM USERS
                          WHERE Username = ?;""", (username,))
     data = result.fetchall()
-    
-    if data == []:
-        print('User does not exist')
+    cur.close()
 
-    elif username == data[0][0] and hashed_password == data[0][1]:
-        print('Logged in')
+    if data and username == data[0][1] and hashed_password == data[0][2]:
+        # USER_ID = 
+        # i think user id would need to be returned instead global cz heres the thing, this file wont be running. yea. yea.
+        message = {"Message":"Log in successful",
+                   "User ID": data[0][0]}
+        return message
 
     else:
-        print('Incorrect username or password')
-
-    cur.close()
+        message = {"Message":"Username or password incorrect"}
+        return message
