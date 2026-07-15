@@ -1,4 +1,4 @@
-import sqlite3, uuid
+import sqlite3, uuid, hashlib
 
 PATH =r"E:\Journal_Site\journal_entries.db"
 
@@ -70,9 +70,10 @@ def SignUp(username:str, psw:str):
     cur.execute("PRAGMA foreign_keys = ON;")
 
     id = str(uuid.uuid4())
+    hashed_password = str(hashlib.sha256(psw.encode("utf-8")).hexdigest())
 
     try:
-        cur.execute("INSERT INTO USERS (user_id, Username, Password) VALUES(?,?,?);", (id, username, psw))
+        cur.execute("INSERT INTO USERS (user_id, Username, Password) VALUES(?,?,?);", (id, username, hashed_password))
     except sqlite3.IntegrityError:
         print('USERNAME ALREADY TAKEN')
     finally:
