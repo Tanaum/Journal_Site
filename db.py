@@ -80,10 +80,28 @@ def SignUp(username:str, psw:str):
         con.commit()
         con.close()
 
-def LogIn():
+def LogIn(username:str, psw:str):
     # get user creds
     # check whether user exists
     # proceed if creds are correct
     con = sqlite3.connect(PATH)
     cur = con.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
+
+    hashed_password = str(hashlib.sha256(psw.encode("utf-8")).hexdigest())
+
+    result = cur.execute("""SELECT Username, Password
+                         FROM USERS
+                         WHERE Username = ?;""", (username,))
+    data = result.fetchall()
+    
+    if data == []:
+        print('User does not exist')
+
+    elif username == data[0][0] and hashed_password == data[0][1]:
+        print('Logged in')
+
+    else:
+        print('Incorrect username or password')
+
+    cur.close()
