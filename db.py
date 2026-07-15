@@ -2,30 +2,31 @@ import sqlite3, uuid, hashlib
 
 PATH =r"E:\Journal_Site\journal_entries.db"
 
-con = sqlite3.connect(PATH)
+def CreateDBs():
+    con = sqlite3.connect(PATH)
 
-cur = con.cursor()
+    cur = con.cursor()
 
-cur.execute("PRAGMA foreign_keys = ON;")    # it prevents a fk in entries that doesnt exist as a pk in users 
+    cur.execute("PRAGMA foreign_keys = ON;")    # it prevents a fk in entries that doesnt exist as a pk in users 
 
-cur.execute('''CREATE TABLE IF NOT EXISTS "USERS" (
-	"user_id"	TEXT NOT NULL UNIQUE,
-	"Username"	TEXT NOT NULL UNIQUE,
-	"Password"	TEXT NOT NULL,
-	PRIMARY KEY("user_id")
-);''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS "USERS" (
+        "user_id"	TEXT NOT NULL UNIQUE,
+        "Username"	TEXT NOT NULL UNIQUE,
+        "Password"	TEXT NOT NULL,
+        PRIMARY KEY("user_id")
+    );''')
 
-cur.execute('''CREATE TABLE IF NOT EXISTS "JOURNAL_ENTRIES" (
-	"TimeInMilli"	INTEGER,
-	"user_id_FK"	INTEGER,
-	"Date"	TEXT,
-	"Entry"	TEXT,
-	PRIMARY KEY("TimeInMilli"),
-	FOREIGN KEY("user_id_FK") REFERENCES "USERS"("user_id")
-);''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS "JOURNAL_ENTRIES" (
+        "TimeInMilli"	INTEGER,
+        "user_id_FK"	INTEGER,
+        "Date"	TEXT,
+        "Entry"	TEXT,
+        PRIMARY KEY("TimeInMilli"),
+        FOREIGN KEY("user_id_FK") REFERENCES "USERS"("user_id")
+    );''')
 
-con.commit()
-con.close()
+    con.commit()
+    con.close()
 
 #function for storing data
 def SaveToDB(data):
@@ -74,6 +75,7 @@ def SignUp(username:str, psw:str):
 
     try:
         cur.execute("INSERT INTO USERS (user_id, Username, Password) VALUES(?,?,?);", (id, username, hashed_password))
+        CreateDBs()
     except sqlite3.IntegrityError:
         print('USERNAME ALREADY TAKEN')
     finally:
