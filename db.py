@@ -65,10 +65,14 @@ def SignUp():
     # ensure data doesnt already exist
     # if exists, tell user to enter unique details
     # generate uuid
-    ...
+    con = sqlite3.connect(PATH)
+    cur = con.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
 
 def LogIn():
     # get user creds
     # check whether user exists
     # proceed if creds are correct
-    ...
+    con = sqlite3.connect(PATH)
+    cur = con.cursor()
+    cur.execute("PRAGMA foreign_keys = ON;")
