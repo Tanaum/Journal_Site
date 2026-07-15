@@ -1,6 +1,6 @@
-import sqlite3
+import sqlite3, uuid
 
-PATH = "E:/Journal_Site/journal_entries.db"
+PATH =r"E:\Journal_Site\journal_entries.db"
 
 con = sqlite3.connect(PATH)
 
@@ -11,7 +11,7 @@ cur.execute("PRAGMA foreign_keys = ON;")    # it prevents a fk in entries that d
 cur.execute('''CREATE TABLE IF NOT EXISTS "USERS" (
 	"user_id"	TEXT NOT NULL UNIQUE,
 	"Username"	TEXT NOT NULL UNIQUE,
-	"Password"	INTEGER NOT NULL,
+	"Password"	TEXT NOT NULL,
 	PRIMARY KEY("user_id")
 );''')
 
@@ -60,7 +60,7 @@ def RetrieveData(PrimKey="*"):
     con.close()
     return AllData
 
-def SignUp():
+def SignUp(username:str, psw:str):
     # get user and psw
     # ensure data doesnt already exist
     # if exists, tell user to enter unique details
@@ -68,6 +68,16 @@ def SignUp():
     con = sqlite3.connect(PATH)
     cur = con.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
+
+    id = str(uuid.uuid4())
+
+    try:
+        cur.execute("INSERT INTO USERS (user_id, Username, Password) VALUES(?,?,?);", (id, username, psw))
+    except sqlite3.IntegrityError:
+        print('USERNAME ALREADY TAKEN')
+    finally:
+        con.commit()
+        con.close()
 
 def LogIn():
     # get user creds
