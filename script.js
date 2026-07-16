@@ -4,6 +4,32 @@
 var diaryEntry = $('.diaryEntry');
 var diaryEntryButton = $('.diaryEntryButton');
 var prvEntries = $('.prvEntries');
+var usernameEntry = $('.usernameEntry');
+var passwordEntry = $('.passwordEntry');
+var signUpButton = $('.signUpButton');
+var logInButton = $('.logInButton');
+
+// SIGN UP
+signUpButton.on("click", ()=>{
+   if (passwordEntry.val() !== "" && usernameEntry.val() !== ""){
+    $.ajax({
+        url:'http://localhost:5000/sign-up',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            username: usernameEntry.val(),
+            password: passwordEntry.val()
+        }),
+        success: function(response) {
+                console.log("Update success:", response);
+            },
+        error: function(xhr, status, error) {
+                alert(xhr.responseJSON.Message);
+                console.error("PUT error:", error);
+            }
+    })
+   } 
+})
 
 //TO TAKE THE CONTENT FROM THE USER
 diaryEntryButton.on("click", ()=>{
