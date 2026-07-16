@@ -8,6 +8,7 @@ var usernameEntry = $('.usernameEntry');
 var passwordEntry = $('.passwordEntry');
 var signUpButton = $('.signUpButton');
 var logInButton = $('.logInButton');
+var UUID;
 
 // SIGN UP
 signUpButton.on("click", ()=>{
@@ -22,6 +23,31 @@ signUpButton.on("click", ()=>{
         }),
         success: function(response) {
                 console.log("Update success:", response);
+            },
+        error: function(xhr, status, error) {
+                alert(xhr.responseJSON.Message);
+                console.error("PUT error:", error);
+            }
+    })
+   } 
+})
+
+// LOG IN
+logInButton.on("click",()=>{
+    if (passwordEntry.val() !== "" && usernameEntry.val() !== ""){
+    $.ajax({
+        url:'http://localhost:5000/log-in',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            username: usernameEntry.val(),
+            password: passwordEntry.val()
+        }),
+        success: function(response) {
+                console.log("Update success:", response);
+                console.log(response["User ID"]);
+                console.log(typeof response["User ID"]);
+                document.cookie = "userId=" + response["User ID"];
             },
         error: function(xhr, status, error) {
                 alert(xhr.responseJSON.Message);
