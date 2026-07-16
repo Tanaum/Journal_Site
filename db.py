@@ -105,10 +105,12 @@ def LogIn(username:str, psw:str):
     if data and username == data[0][1] and hashed_password == data[0][2]:
         # USER_ID = 
         # i think user id would need to be returned instead global cz heres the thing, this file wont be running. yea. yea.
-        message = {"Message":"Log in successful",
+        message = {"Logged In":True,
+                   "Message":"Log in successful",
                    "User ID": data[0][0]}
         return message
 
     else:
-        message = {"Message":"Username or password incorrect"}
+        message = {"Logged In":False,
+                   "Message":"Username or password incorrect"}
         return message
