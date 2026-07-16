@@ -20,7 +20,7 @@ def Sign_Up():
         return jsonify(ReturnValue), 400
 
 # LogIn
-@app.route('/log-in', methods=['GET'])
+@app.route('/log-in', methods=['POST'])
 def Log_In():
     data = request.get_json()   # will contain username and psw
     
