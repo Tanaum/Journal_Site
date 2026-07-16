@@ -19,12 +19,23 @@ def Sign_Up():
     else:
         return jsonify(ReturnValue), 400
 
+# LogIn
+@app.route('/log-in', methods=['GET'])
+def Log_In():
+    data = request.get_json()   # will contain username and psw
+    
+    username, password = data["username"], data["password"]
+
+    ReturnValue = LogIn(username, password)
+    if ReturnValue["Logged In"]:
+        return jsonify(ReturnValue), 200
+    else:
+        return jsonify(ReturnValue), 400
+
 #will take data sent from user
 @app.route("/api/save-entry", methods=["POST"]) #POST will be used here cz this will *send* data to the db
 def TakeEntry():
     data = request.get_json()
-
-    # print(data)
 
     SaveToDB(data)
 
