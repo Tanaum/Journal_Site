@@ -1,17 +1,30 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from db import SaveToDB, RetrieveData
+from db import SaveToDB, RetrieveData, SignUp, LogIn
 
 app = Flask(__name__)
 
 CORS(app, supports_credentials=True)  # This allows all domains to access all routes (for dev it's fine)
+
+# SignUp
+@app.route('/sign-up', methods=["POST"])
+def Sign_Up():
+    data = request.get_json()   # will contain username and psw
+    
+    username, password = data["username"], data["password"]
+
+    ReturnValue = SignUp(username, password)
+    if ReturnValue["Account Created"]:
+        return jsonify(ReturnValue), 200
+    else:
+        return jsonify(ReturnValue), 400
 
 #will take data sent from user
 @app.route("/api/save-entry", methods=["POST"]) #POST will be used here cz this will *send* data to the db
 def TakeEntry():
     data = request.get_json()
 
-    print(data)
+    # print(data)
 
     SaveToDB(data)
 
