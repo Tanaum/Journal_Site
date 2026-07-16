@@ -76,11 +76,13 @@ def SignUp(username:str, psw:str):
     try:
         cur.execute("INSERT INTO USERS (user_id, Username, Password) VALUES(?,?,?);", (id, username, hashed_password))
         CreateDBs()
+        Message = {"Message" : "User account created successfully"}
     except sqlite3.IntegrityError:
-        print('USERNAME ALREADY TAKEN')
+        Message = {"Message" : "Username already taken"}
     finally:
         con.commit()
         con.close()
+    return Message
 
 def LogIn(username:str, psw:str):
     # get user creds
