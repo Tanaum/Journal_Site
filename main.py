@@ -33,25 +33,25 @@ def Log_In():
         return jsonify(ReturnValue), 400
 
 #will take data sent from user
-@app.route("/api/save-entry", methods=["POST"]) #POST will be used here cz this will *send* data to the db
+@app.route("/api/save-entry/", methods=["POST"]) #POST will be used here cz this will *send* data to the db
 def TakeEntry():
     data = request.get_json()
-
-    SaveToDB(data)
-
-    msg = {"success":True, "message": "data successfully stored"}
-
-    return jsonify(msg)
+    msg = SaveToDB(data)
+    if msg["Added To DB"]:
+        return jsonify(msg), 200
+    else:
+        return jsonify(msg), 400
 
 #will send data to the user 
-@app.route("/api/get-entries", methods=["GET"]) #GET will be used here cz this will *retrieve* data from the db
-def SendEntries():
-    DictEntries = RetrieveData()
+@app.route("/api/get-entries/<userID>", methods=["GET"]) #GET will be used here cz this will *retrieve* data from the db
+def SendEntries(userID):
+    DictEntries = RetrieveData(userID)
 
     EntriesToSend = []
+    print(DictEntries)
 
     for entry in DictEntries:
-        EntriesToSend.append({"TimeInMilli": entry[0],"Date": entry[1],"Entry": entry[2]})
+        EntriesToSend.append({"TimeInMilli": entry[0],"Date": entry[2],"Entry": entry[3]})
 
     return jsonify(EntriesToSend)
 

@@ -18,7 +18,7 @@ def CreateDBs():
 
     cur.execute('''CREATE TABLE IF NOT EXISTS "JOURNAL_ENTRIES" (
         "TimeInMilli"	INTEGER,
-        "user_id_FK"	INTEGER,
+        "user_id_FK"	TEXT,
         "Date"	TEXT,
         "Entry"	TEXT,
         PRIMARY KEY("TimeInMilli"),
@@ -34,15 +34,24 @@ def SaveToDB(data):
     con = sqlite3.connect(PATH)
     cur = con.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
-    time = data["TimeInMilli"]
-    date = data["Date"]
-    entry = data["Entry"]
-    cur.execute("INSERT INTO JOURNAL_ENTRIES (TimeInMilli, Date, Entry) VALUES(?, ?, ?);", (time, date, entry))
-    con.commit()
-    con.close()
+    try:
+        time = data["TimeInMilli"]
+        date = data["Date"]
+        entry = data["Entry"]
+        user_id_FK = data["userID"]
+        cur.execute("INSERT INTO JOURNAL_ENTRIES (TimeInMilli, user_id_FK, Date, Entry) VALUES(?, ?, ?, ?);", (time, user_id_FK, date, entry))
+        Message = {"Added To DB": True,
+                   "Message":"Successfully added to DB"}
+    except:
+        Message = {"Added To DB": False,
+                   "Message":"An error occured"}
+    finally:
+        con.commit()
+        con.close()
+        return Message
 
 #function for retrieving data
-def RetrieveData(PrimKey="*"):
+def RetrieveData(user_id_FK, PrimKey="*"):
     con = sqlite3.connect(PATH)
     cur = con.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
@@ -50,12 +59,14 @@ def RetrieveData(PrimKey="*"):
         #data is returned as lists of tuples from the db
         result = cur.execute("""SELECT * 
                             FROM JOURNAL_ENTRIES
-                            ORDER BY TimeInMilli DESC;""")
+                            WHERE user_id_FK = ?
+                            ORDER BY TimeInMilli DESC;""", (user_id_FK,))
         AllData = result.fetchall() # ✅ get all the rows while the DB is still open
     else:
         result = cur.execute("""SELECT * 
                             FROM JOURNAL_ENTRIES
-                            WHERE TimeInMilli = ?;""", (int(PrimKey),))
+                            WHERE TimeInMilli = ?
+                            AND user_id_FK = ?;""", (int(PrimKey), user_id_FK,))
         AllData = result.fetchall() # ✅ get all the rows while the DB is still open
     
     con.close()
