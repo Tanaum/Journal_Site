@@ -8,6 +8,7 @@ var usernameEntry = $('.usernameEntry');
 var passwordEntry = $('.passwordEntry');
 var signUpButton = $('.signUpButton');
 var logInButton = $('.logInButton');
+
 const UUID = getCookie("userID");
 
 // SIGN UP
