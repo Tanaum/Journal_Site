@@ -22,6 +22,8 @@ signUpButton.on("click", ()=>{
             password: passwordEntry.val()
         }),
         success: function(response) {
+                usernameEntry.val('');
+                passwordEntry.val('');
                 console.log("Update success:", response);
             },
         error: function(xhr, status, error) {
@@ -44,9 +46,11 @@ logInButton.on("click",()=>{
             password: passwordEntry.val()
         }),
         success: function(response) {
+                usernameEntry.val('');
+                passwordEntry.val('');
+                window.location.href = "DiaryEntry.html"
                 console.log("Update success:", response);
                 document.cookie = "userID=" + response["User ID"];
-                console.log(document.cookie);
             },
         error: function(xhr, status, error) {
                 alert(xhr.responseJSON.Message);
