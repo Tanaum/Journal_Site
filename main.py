@@ -11,7 +11,7 @@ CORS(app, supports_credentials=True)  # This allows all domains to access all ro
 def home():
     return render_template('index.html')
 
-@app.route('/new-entry')
+@app.route('/journal')
 def NewEntry():
     return render_template('DiaryEntry.html')
 
@@ -63,7 +63,6 @@ def SendEntries(userID):
     DictEntries = RetrieveData(userID)
 
     EntriesToSend = []
-    print(DictEntries)
 
     for entry in DictEntries:
         EntriesToSend.append({"TimeInMilli": entry[0],"Date": entry[2],"Entry": entry[3]})

@@ -49,7 +49,7 @@ logInButton.on("click",()=>{
         success: function(response) {
                 usernameEntry.val('');
                 passwordEntry.val('');
-                window.location.href = "DiaryEntry.html"
+                window.location.href = "/journal"   // redirect to the (flask) route, not the file!
                 console.log("Update success:", response);
                 document.cookie = "userID=" + response["User ID"];
             },
