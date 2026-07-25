@@ -1,10 +1,25 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from db import SaveToDB, RetrieveData, SignUp, LogIn
 
 app = Flask(__name__)
 
 CORS(app, supports_credentials=True)  # This allows all domains to access all routes (for dev it's fine)
+
+# PAGES
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/new-entry')
+def NewEntry():
+    return render_template('DiaryEntry.html')
+
+@app.route('/entries')
+def Entries():
+    return render_template('PrvEnt.html')
+
+# API
 
 # SignUp
 @app.route('/sign-up', methods=["POST"])
